@@ -20,8 +20,8 @@ public class BaseDriver {
     public static WebDriverWait wait;
 
     @BeforeClass
-    public void baslangicIslemleri() {
-        Logger logger = Logger.getLogger(""); // output yapılan logları al.
+    public void baslangicIslemleri(){
+        Logger logger= Logger.getLogger(""); // output yapılan logları al.
         logger.setLevel(Level.SEVERE); // sadece ERROR ları göster
 
         driver = new ChromeDriver(); // jenkins deyken : sen head olmadan yani hafızada çalış
@@ -30,12 +30,15 @@ public class BaseDriver {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));  // 20 sn mühlet: elementi bulma mühleti
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
-    }
-        @AfterClass
-        public void bitisIslemleri () { // tearDown
-            MyFunc.Bekle(3);
-            driver.quit();
-        }
-
 
     }
+
+
+
+    @AfterClass
+    public void bitisIslemleri(){ // tearDown
+        MyFunc.Bekle(5);
+        driver.quit();
+    }
+
+}
