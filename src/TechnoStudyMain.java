@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -130,57 +131,60 @@ public class TechnoStudyMain extends BaseDriver {
     }
 
     @Test
-    public void Courses_DropDownMenu() {
-
-        Actions action = new Actions(driver);
-
+    public void ApplyWithApplyButton() {
         driver.get("https://techno.study/tr");
-        MyFunc.Bekle(2);
+        WebElement ApplyButton = driver.findElement(By.xpath("(//*[@class='t-btn t-btn_md js-click-stat'])[1]"));
+        ApplyButton.click();
 
-        WebElement ddMenu = driver.findElement(By.xpath("//a[@class='t-menu__link-item t966__tm-link']"));
+        WebElement NameSurname = driver.findElement(By.name("name"));
+        NameSurname.sendKeys("Test Ebbubekir Sıddık");
 
-        Action aksiyon = action.moveToElement(ddMenu).build();
-        aksiyon.perform();
+        WebElement Email = driver.findElement(By.name("email"));
+        Email.sendKeys("TestEbuBekir@gmail.com");
 
-        WebElement sdetBtn = driver.findElement(By.xpath("(//div[@class='t966__menu-item-title t-name'])[1]"));
-        sdetBtn.click();
+        WebElement PhoneNumber = driver.findElement(By.cssSelector("[name='tildaspec-phone-part[]']"));
+        PhoneNumber.sendKeys("0555555555");
 
-        Assert.assertTrue(driver.getCurrentUrl().contains("sdet"));
+        Select SelectCountry = new Select(driver.findElement(By.name("country")));
+        SelectCountry.selectByValue("Andorra");
+
+
+        Select SelectCourse = new Select(driver.findElement(By.name("course")));
+        SelectCourse.selectByValue("SDET Türkçe");
+
+        Select SelectHireAbout = new Select(driver.findElement(By.name("survey")));
+        SelectHireAbout.selectByValue("Arkadaş vasıtası ile");
+
+        WebElement CheckBox = driver.findElement(By.cssSelector("[class='t-checkbox__indicator']"));
+        CheckBox.click();
+
+        WebElement Submit = driver.findElement(By.cssSelector("[type='submit']"));
+        Submit.click();
+
+        MyFunc.Bekle(10);
+        //çıkan robotmusunuz soruna onay verin doğru resimleri seçin ve mouse bırakın
+
+        WebElement Message = driver.findElement(By.id("tildaformsuccesspopuptext"));
+
+        Assert.assertTrue(Message.getText().contains("Başvurunuz alınmıştır"));
     }
 
     @Test
-    public void Courses_SubMenu() {
-
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
+    public void ClickTechoStudyLogoAndEnterWebsite() {
         driver.get("https://techno.study/tr");
-        MyFunc.Bekle(2);
+        WebElement Logo = driver.findElement(By.cssSelector("[class='t228__imglogo ']"));
+        Assert.assertTrue(Logo.isEnabled());
 
-        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+        Logo.click();
+        Assert.assertTrue(driver.getCurrentUrl().equals("https://techno.study/home"));
 
-        WebElement sdetBtn = driver.findElement(By.linkText("SDET Yazılım Test Mühendisi"));
-        sdetBtn.click();
-        Assert.assertTrue(driver.getCurrentUrl().contains("sdet"));
-
-        driver.navigate().back();
-
-        WebElement androidBtn = driver.findElement(By.linkText("Android Uygulama Geliştirme"));
-        androidBtn.click();
-        Assert.assertTrue(driver.getCurrentUrl().contains("androidapp"));
-
-        driver.navigate().back();
-
-        WebElement veriBtn = driver.findElement(By.linkText("Veri bilimi"));
-        veriBtn.click();
-        Assert.assertTrue(driver.getCurrentUrl().contains("data"));
-
-        driver.navigate().back();
-
-        WebElement masterBtn = driver.findElement(By.linkText("Master's Program"));
-        masterBtn.click();
-        Assert.assertTrue(driver.getCurrentUrl().contains("masters"));
     }
 }
+
+
+
+
+
 
 
 
