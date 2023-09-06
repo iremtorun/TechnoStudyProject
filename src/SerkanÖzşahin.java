@@ -41,9 +41,24 @@ public class SerkanÖzşahin extends BaseDriver {
 
         WebElement sdetBtn = driver.findElement(By.linkText("SDET Yazılım Test Mühendisi"));
         sdetBtn.click();
-
         Assert.assertTrue(driver.getCurrentUrl().contains("sdet"));
 
         driver.navigate().back();
+
+        WebElement androidBtn = driver.findElement(By.linkText("Android Uygulama Geliştirme"));
+        androidBtn.click();
+        Assert.assertTrue(driver.getCurrentUrl().contains("androidapp"));
+
+        driver.navigate().back();
+
+        WebElement veriBtn = driver.findElement(By.linkText("Veri bilimi"));
+        veriBtn.click();
+        Assert.assertTrue(driver.getCurrentUrl().contains("data"));
+
+        driver.navigate().back();
+
+        WebElement masterBtn = driver.findElement(By.linkText("Master's Program"));
+        masterBtn.click();
+        Assert.assertTrue(driver.getCurrentUrl().contains("masters"));
     }
 }
